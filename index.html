@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mất 1 cục thịt — Biên bản nồi nui hầm xương</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0b09; --panel:#16120e; --line:#2a231c; --text:#f3ece2; --muted:#a3978a;
+    --accent:#f4a340; --chili:#e5483b; --herb:#6fcf5a; --sauce:#c8641e;
+    --serif:"Playfair Display",Georgia,serif;
+    --sans:"Be Vietnam Pro",ui-sans-serif,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  body{position:relative;overflow-x:hidden;
+    background:radial-gradient(900px 500px at 75% 8%,rgba(244,163,64,.10),transparent 60%),var(--bg)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:5;background:rgba(13,11,9,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+  .logo{font-weight:800;letter-spacing:-.02em;display:flex;gap:9px;align-items:center}
+  .logo i{width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);display:inline-block}
+  nav{display:flex;gap:24px;font-size:13.5px;color:var(--muted)}
+  .cta{font-size:13px;border:1px solid var(--line);padding:8px 14px;border-radius:999px}
+  @media (max-width:760px){ nav{display:none} }
+
+  .hero{padding-top:70px;padding-bottom:60px;display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+  @media (max-width:900px){ .hero{grid-template-columns:1fr} }
+  .eyebrow{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:clamp(46px,7.2vw,96px);line-height:.95;letter-spacing:-.045em;margin:16px 0 0;font-weight:800}
+  h1 em,h2 em{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+  h1 em{color:var(--accent)}
+  .lede{max-width:540px;color:#cbbfb1;font-size:17px;line-height:1.6;margin:22px 0 28px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 18px;border-radius:10px;font-size:14px;font-weight:700;border:0;cursor:pointer;font-family:var(--sans)}
+  .btn.primary{background:var(--accent);color:#1d1003}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px;max-width:560px}
+  .stat{border-top:1px solid var(--line);padding-top:12px}
+  .stat b{display:block;font-size:30px;letter-spacing:-.03em}
+  .stat span{font-size:12px;color:var(--muted)}
+  .art{width:100%;height:auto;display:block}
+  .hero-art{position:relative}
+  .pin{position:absolute;font:700 11.5px/1 var(--sans);background:var(--chili);color:#fff;padding:6px 9px;border-radius:6px;box-shadow:0 0 18px rgba(229,72,59,.5)}
+
+  section{padding:70px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(34px,5vw,58px);letter-spacing:-.035em;margin:10px 0 32px;line-height:1}
+  h2 em{color:var(--accent)}
+  .scene{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+  @media (max-width:900px){ .scene{grid-template-columns:1fr} }
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .card h3{margin:12px 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+  .artbox{background:radial-gradient(closest-side,rgba(244,163,64,.13),transparent);border-radius:12px}
+  .file{font-size:14px}
+  .file-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line)}
+  .file-row span:first-child{color:var(--muted)}
+  .file-row b{font-weight:500;text-align:right}
+  .file-row b.red{color:var(--chili)}
+  .stamp{display:inline-block;margin-top:16px;border:2px solid var(--chili);color:var(--chili);font:800 13px/1 var(--sans);letter-spacing:.12em;padding:8px 12px;border-radius:6px;transform:rotate(-4deg)}
+
+  .reasons{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width:960px){ .reasons{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:520px){ .reasons{grid-template-columns:1fr} .stats{grid-template-columns:repeat(3,1fr)} }
+  .num{font-family:var(--mono);font-size:30px;color:var(--accent)}
+  .card.r1 .num{color:var(--chili)} .card.r2 .num{color:#f0c25a} .card.r3 .num{color:#f7e3c4} .card.r4 .num{color:var(--herb)}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+  .tag{font-family:var(--sans);font-size:10.5px;border:1px solid var(--line);border-radius:999px;padding:4px 8px;color:#cbbfb1}
+
+  .final{text-align:center;padding:100px 0 80px}
+  .final h2{font-size:clamp(44px,7.5vw,104px);margin:14px auto 18px}
+  .final h2 em{color:var(--herb)}
+  .final p{color:#cbbfb1;font-size:18px;margin:0 auto 28px;max-width:560px;line-height:1.6}
+  .final .btns{justify-content:center}
+  .reply{min-height:24px;margin-top:18px;font-weight:600;color:var(--accent)}
+  footer{padding:30px 0 140px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+
+  /* steam */
+  .steam path{fill:none;stroke:rgba(255,255,255,.28);stroke-width:5;stroke-linecap:round;animation:steam 3.2s ease-in-out infinite}
+  .steam path:nth-child(2){animation-delay:.9s}.steam path:nth-child(3){animation-delay:1.8s}
+  @keyframes steam{0%{opacity:0;transform:translateY(14px)}35%{opacity:1}100%{opacity:0;transform:translateY(-22px)}}
+  .ghost-spot{animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.45}}
+
+  /* ---------- effect: hidden state ---------- */
+  .unbuilt{opacity:0 !important;transform:translateY(8px) scale(.985)}
+  svg .unbuilt{transform:none}
+  .built{transition:opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1)}
+
+  /* ---------- effect: overlay ---------- */
+  #ab-overlay{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:50}
+  .ab-cursor{position:absolute;left:0;top:0;will-change:transform;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+  .ab-cursor svg{display:block}
+  .ab-cursor .lbl{position:absolute;left:14px;top:16px;font:600 10.5px/1 var(--sans);color:#fff;padding:4px 7px;border-radius:6px;white-space:nowrap;box-shadow:0 0 12px var(--c)}
+  .ab-box{position:absolute;border:1.5px solid var(--c);border-radius:3px;box-shadow:0 0 14px -2px var(--c), inset 0 0 18px -10px var(--c)}
+  .ab-box i{position:absolute;width:7px;height:7px;background:#fff;border:1.5px solid var(--c);border-radius:1px}
+  .ab-box i:nth-child(1){left:-4px;top:-4px}.ab-box i:nth-child(2){right:-4px;top:-4px}
+  .ab-box i:nth-child(3){left:-4px;bottom:-4px}.ab-box i:nth-child(4){right:-4px;bottom:-4px}
+  .ab-box .sz{position:absolute;left:0;bottom:-22px;font:600 10px/1 var(--mono);color:#fff;background:var(--c);padding:4px 6px;border-radius:4px;white-space:nowrap}
+  .ab-guide{position:absolute;background:var(--c);opacity:.55;box-shadow:0 0 8px var(--c)}
+
+  #ab-hud{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:10px;
+    background:rgba(24,20,16,.92);backdrop-filter:blur(12px);border:1px solid #352c23;border-radius:999px;padding:7px 8px 7px 12px;
+    font:600 11.5px/1 var(--sans);color:#e6ddd2;box-shadow:0 10px 30px rgba(0,0,0,.45);white-space:nowrap;max-width:calc(100vw - 20px)}
+  #ab-hud .dots{display:flex}
+  #ab-hud .dots span{width:12px;height:12px;border-radius:50%;margin-left:-4px;border:2px solid #181410}
+  #ab-hud .sep{width:1px;height:14px;background:#352c23}
+  #ab-hud .bar{width:70px;height:4px;border-radius:4px;background:#352c23;overflow:hidden}
+  #ab-hud .bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--chili),var(--accent))}
+  #ab-hud .state{background:#c25a14;color:#fff;padding:6px 10px;border-radius:999px}
+  #ab-hud .state.done{background:#2f8f3f}
+  #ab-hud button{all:unset;cursor:pointer;background:#2a231c;padding:6px 9px;border-radius:999px;font:600 11px/1 var(--sans);color:#e6ddd2}
+  #ab-hud button:hover{background:#3a3027}
+  @media (max-width:520px){ #ab-hud .bar,#ab-hud .sep{display:none} #ab-hud{gap:6px;font-size:10.5px;padding:6px 6px 6px 10px}
+    #ab-hud button{padding:6px 7px} #ab-hud .state{padding:6px 8px} #ab-hud .dots span:nth-child(n+4){display:none} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top"><i></i>nồi.nui</a>
+    <nav><a href="#hien-truong">Hiện trường</a><a href="#vi-sao">Vì sao</a><a href="#thong-diep">Thông điệp</a></nav>
+    <a class="cta" href="#thong-diep">Xin lỗi tại đây ↗</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">Biên bản sự việc · Bếp nhà · Tối nay</div>
+      <h1>Mất 1 cục thịt.<br><em>Không ai nhận.</em></h1>
+      <p class="lede">Một nồi nui hầm xương được nấu bằng thời gian, công sức và cả tấm lòng. Cục thịt ngon nhất đã biến mất khỏi tô — và hiện trường cho thấy nó đã bị cắt làm đôi, chấm nước mắm.</p>
+      <div class="btns">
+        <a class="btn primary" href="#hien-truong">Xem hiện trường</a>
+        <a class="btn ghost" href="#vi-sao">Vì sao không nên</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>1</b><span>cục thịt đã mất</span></div>
+        <div class="stat"><b>½ + ½</b><span>nằm trong chén nước mắm</span></div>
+        <div class="stat"><b>0</b><span>lời xin phép</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg class="art" viewBox="0 0 560 440" role="img" aria-label="Tô nui hầm xương, thiếu một cục thịt">
+  <defs>
+    <radialGradient id="b-broth" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#f3bb66"/><stop offset=".6" stop-color="#d98b33"/><stop offset="1" stop-color="#9a581b"/></radialGradient>
+    <linearGradient id="b-cer" x1="0" x2="1"><stop offset="0" stop-color="#c9bfb0"/><stop offset=".45" stop-color="#fbf8f2"/><stop offset="1" stop-color="#b8ad9d"/></linearGradient>
+    <clipPath id="b-clip"><ellipse cx="280" cy="190" rx="196" ry="56"/></clipPath>
+  </defs>
+  <g class="steam" data-layer><path d="M220 128 C198 104 242 88 222 58"/><path d="M285 122 C263 94 307 78 287 44"/><path d="M350 128 C328 104 372 88 352 60"/></g>
+  <ellipse data-layer cx="280" cy="404" rx="190" ry="20" fill="rgba(0,0,0,.55)"/>
+  <g data-layer>
+    <ellipse cx="280" cy="392" rx="78" ry="13" fill="#a89e8f"/>
+    <path d="M68 190 Q78 372 280 388 Q482 372 492 190 Z" fill="url(#b-cer)"/>
+    <path d="M86 262 Q280 340 474 262" stroke="#2f5fae" stroke-width="7" fill="none" opacity=".9"/>
+    <path d="M98 286 Q280 356 462 286" stroke="#2f5fae" stroke-width="2.5" fill="none" opacity=".7"/>
+    <ellipse cx="280" cy="190" rx="212" ry="64" fill="#f6f2ea"/>
+    <ellipse cx="280" cy="190" rx="205" ry="60" fill="none" stroke="#2f5fae" stroke-width="2.5" opacity=".75"/>
+  </g>
+  <g data-layer>
+    <ellipse cx="280" cy="190" rx="196" ry="56" fill="url(#b-broth)"/>
+    <ellipse cx="280" cy="182" rx="196" ry="52" fill="none" stroke="rgba(90,45,10,.35)" stroke-width="12" clip-path="url(#b-clip)"/>
+  </g>
+  <g clip-path="url(#b-clip)">
+    <g data-layer>
+      <g transform="translate(172 184)">
+        <path d="M-44 -4 C-42 -26 -6 -32 16 -24 C38 -16 46 4 32 16 C14 28 -34 26 -44 -4Z" fill="#8c4f2c"/>
+        <path d="M-30 8 C-10 14 10 12 26 4 M-34 -6 C-12 0 12 -2 30 -10" stroke="#6b361b" stroke-width="2" fill="none" opacity=".7"/>
+        <circle cx="-8" cy="-4" r="17" fill="#efdcbc" stroke="#c7a87c" stroke-width="3"/>
+        <circle cx="-8" cy="-4" r="7" fill="#6b3420"/>
+      </g>
+      <g transform="translate(398 198) rotate(10)">
+        <path d="M-30 -6 C-20 -26 20 -26 30 -6 Z" fill="#94573a"/>
+        <rect x="-36" y="-9" width="72" height="18" rx="9" fill="#ead6b2" stroke="#c4a47a" stroke-width="2.5"/>
+      </g>
+    </g>
+    <g id="nuiG" data-layer></g>
+    <g id="topG" data-layer></g>
+    <g class="ghost-spot" data-layer>
+      <ellipse cx="292" cy="186" rx="36" ry="15" fill="rgba(60,25,5,.4)" stroke="#fff" stroke-width="2" stroke-dasharray="6 5"/>
+      <text x="292" y="192" text-anchor="middle" font-size="18" font-weight="800" fill="#fff" font-family="Be Vietnam Pro, sans-serif">?</text>
+    </g>
+  </g>
+  <g data-layer transform="translate(452 150) rotate(-28)">
+    <path d="M0 0 C-10 -15 -48 -15 -56 0 C-48 16 -10 16 0 0Z" fill="#f7f3ec" stroke="#cfc5b6" stroke-width="2"/>
+    <rect x="-2" y="-5" width="72" height="10" rx="5" fill="#f7f3ec" stroke="#cfc5b6" stroke-width="2"/>
+  </g>
+</svg>
+<script>
+(() => {
+  let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const inBroth = (x, y, k) => ((x-280)/(186*k))**2 + ((y-190)/(50*k))**2 < 1;
+  const inHole = (x, y) => ((x-292)/44)**2 + ((y-186)/20)**2 < 1;
+  const pick = (k) => { for (;;) { const x = 90 + r()*380, y = 136 + r()*110; if (inBroth(x,y,k) && !inHole(x,y)) return [x,y]; } };
+  const nui = [];
+  for (let i = 0; i < 90; i++) { const [x,y] = pick(.95); nui.push([x,y,r()*360]); }
+  nui.sort((a,b) => a[1]-b[1]);
+  document.getElementById("nuiG").innerHTML = nui.map(([x,y,a]) =>
+    `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(0)}) scale(1 .7)">
+      <path d="M-9 3 Q0 -10 9 3" stroke="#e9c06a" stroke-width="8.5" fill="none" stroke-linecap="round"/>
+      <path d="M-7 1 Q0 -8 7 1" stroke="#fbe6a8" stroke-width="2.4" fill="none" opacity=".75"/>
+      <ellipse cx="9" cy="3" rx="2.4" ry="3" fill="#b8822f"/></g>`).join("");
+  let t = "";
+  for (let i = 0; i < 7; i++) { const [x,y] = pick(.85); t += `<g transform="translate(${x} ${y}) scale(1 .65)"><circle r="8.5" fill="#f07a2a"/><circle r="4" fill="#f8a35c"/></g>`; }
+  for (let i = 0; i < 26; i++) { const [x,y] = pick(.95); t += `<ellipse cx="${x}" cy="${y}" rx="4.6" ry="3.2" fill="rgba(140,220,110,.25)" stroke="#5fbf4a" stroke-width="2.2"/>`; }
+  for (let i = 0; i < 12; i++) { const [x,y] = pick(.9); t += `<ellipse cx="${x}" cy="${y}" rx="${6+r()*9}" ry="${1.8+r()*2}" fill="rgba(255,238,190,.35)"/>`; }
+  for (let i = 0; i < 45; i++) { const [x,y] = pick(.95); t += `<circle cx="${x}" cy="${y}" r="1.3" fill="#2b1a0f"/>`; }
+  document.getElementById("topG").innerHTML = t;
+})();
+</script>
+      <span class="pin" style="left:58%;top:40%">← chỗ của cục thịt</span>
+    </div>
+  </div>
+
+  <section id="hien-truong">
+    <div class="wrap">
+      <div class="eyebrow">Hiện trường</div>
+      <h2>Vật chứng <em>số 1.</em></h2>
+      <div class="scene">
+        <div class="card">
+          <div class="artbox"><svg class="art" viewBox="0 0 560 380" role="img" aria-label="Chén nước mắm với cục thịt bị cắt làm đôi">
+  <defs>
+    <radialGradient id="s-sauce" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#e8a053"/><stop offset=".55" stop-color="#b35d1c"/><stop offset="1" stop-color="#6e3410"/></radialGradient>
+    <linearGradient id="s-cer" x1="0" x2="1"><stop offset="0" stop-color="#c9bfb0"/><stop offset=".45" stop-color="#fbf8f2"/><stop offset="1" stop-color="#b8ad9d"/></linearGradient>
+    <clipPath id="s-clip"><ellipse cx="280" cy="184" rx="156" ry="40"/></clipPath>
+    <clipPath id="s-meat" clipPathUnits="userSpaceOnUse"><rect x="-44" y="-38" width="88" height="60" rx="10"/></clipPath>
+  </defs>
+  <ellipse data-layer cx="280" cy="348" rx="170" ry="16" fill="rgba(0,0,0,.55)"/>
+  <g data-layer>
+    <ellipse cx="280" cy="336" rx="60" ry="10" fill="#a89e8f"/>
+    <path d="M108 182 Q120 322 280 334 Q440 322 452 182 Z" fill="url(#s-cer)"/>
+    <path d="M124 238 Q280 298 436 238" stroke="#2f5fae" stroke-width="5" fill="none" opacity=".9"/>
+    <ellipse cx="280" cy="182" rx="172" ry="48" fill="#f6f2ea"/>
+    <ellipse cx="280" cy="182" rx="166" ry="45" fill="none" stroke="#2f5fae" stroke-width="2.5" opacity=".75"/>
+  </g>
+  <g data-layer>
+    <ellipse cx="280" cy="184" rx="156" ry="40" fill="url(#s-sauce)"/>
+    <ellipse cx="228" cy="172" rx="52" ry="7" fill="rgba(255,255,255,.18)"/>
+  </g>
+  <g id="chiliG" data-layer clip-path="url(#s-clip)"></g>
+  <g data-layer transform="translate(228 170) rotate(-9)">
+    <g clip-path="url(#s-meat)">
+      <rect x="-44" y="-38" width="88" height="60" fill="#b8714c"/>
+      <rect x="-44" y="-38" width="88" height="9" fill="#e7c193"/>
+      <rect x="-44" y="-29" width="88" height="17" fill="#fbf1e1"/>
+      <rect x="-44" y="-12" width="88" height="14" fill="#c27a55"/>
+      <rect x="-44" y="2" width="88" height="5" fill="#f5e4cc"/>
+      <rect x="-44" y="7" width="88" height="15" fill="#a65e3b"/>
+      <path d="M-36 -6 L30 -4 M-30 13 L36 15" stroke="rgba(90,40,20,.35)" stroke-width="1.5"/>
+      <rect x="-44" y="4" width="88" height="18" fill="#6e3410" opacity=".5"/>
+    </g>
+    <rect x="-44" y="-38" width="88" height="60" rx="10" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
+    <ellipse cx="0" cy="20" rx="50" ry="7" fill="#b35d1c" opacity=".75"/>
+  </g>
+  <g data-layer transform="translate(336 178) rotate(11) scale(-.94 .94)">
+    <g clip-path="url(#s-meat)">
+      <rect x="-44" y="-38" width="88" height="60" fill="#b8714c"/>
+      <rect x="-44" y="-38" width="88" height="9" fill="#e7c193"/>
+      <rect x="-44" y="-29" width="88" height="17" fill="#fbf1e1"/>
+      <rect x="-44" y="-12" width="88" height="14" fill="#c27a55"/>
+      <rect x="-44" y="2" width="88" height="5" fill="#f5e4cc"/>
+      <rect x="-44" y="7" width="88" height="15" fill="#a65e3b"/>
+      <path d="M-36 -6 L30 -4 M-30 13 L36 15" stroke="rgba(90,40,20,.35)" stroke-width="1.5"/>
+      <rect x="-44" y="4" width="88" height="18" fill="#6e3410" opacity=".5"/>
+    </g>
+    <rect x="-44" y="-38" width="88" height="60" rx="10" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
+    <ellipse cx="0" cy="20" rx="50" ry="7" fill="#b35d1c" opacity=".75"/>
+  </g>
+  <g data-layer transform="translate(318 96) rotate(-20)">
+    <rect x="0" y="0" width="250" height="8" rx="4" fill="#6b3f22"/>
+    <rect x="8" y="15" width="240" height="8" rx="4" fill="#7d4b29"/>
+  </g>
+  <g data-layer>
+    <path d="M150 74 C190 80 210 110 220 130" stroke="#e5483b" stroke-width="2" stroke-dasharray="5 5" fill="none"/>
+    <rect x="58" y="52" width="140" height="28" rx="6" fill="#e5483b"/>
+    <text x="128" y="71" text-anchor="middle" font-family="Be Vietnam Pro, sans-serif" font-size="12.5" font-weight="700" fill="#fff">VẬT CHỨNG #1</text>
+  </g>
+</svg>
+<script>
+(() => {
+  let s = 11; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  let t = "";
+  for (let i = 0; i < 16; i++) { const x = 140 + r()*280, y = 160 + r()*48;
+    t += `<g transform="translate(${x} ${y}) scale(1 .6)"><circle r="7" fill="rgba(229,72,59,.2)" stroke="#e0382b" stroke-width="3.5"/><circle cx="2" cy="1" r="1.5" fill="#f6d36b"/><circle cx="-2" cy="-1" r="1.2" fill="#f6d36b"/></g>`; }
+  for (let i = 0; i < 18; i++) { const x = 140 + r()*280, y = 160 + r()*48;
+    t += `<rect x="${x}" y="${y}" width="6" height="4" rx="1.5" fill="#f6efe0" transform="rotate(${r()*90} ${x} ${y})"/>`; }
+  document.getElementById("chiliG").innerHTML = t;
+})();
+</script></div>
+          <h3>Chén nước mắm — cục thịt bị cắt làm đôi</h3>
+          <p>Hai nửa cục thịt nằm gọn trong chén nước mắm ớt tỏi. Dấu đũa còn mới. Thủ phạm đã ăn rất có kế hoạch.</p>
+          <div class="tags"><span class="tag">thịt</span><span class="tag">nước mắm</span><span class="tag">ớt</span><span class="tag">tỏi</span></div>
+        </div>
+        <div class="card file">
+          <div class="eyebrow">Hồ sơ vụ việc</div>
+          <div class="file-row"><span>Món</span><b>Nui hầm xương</b></div>
+          <div class="file-row"><span>Thời gian nấu</span><b>Vài tiếng hầm xương</b></div>
+          <div class="file-row"><span>Thiệt hại</span><b class="red">1 cục thịt</b></div>
+          <div class="file-row"><span>Hiện trạng</span><b>Cắt đôi · chấm nước mắm</b></div>
+          <div class="file-row"><span>Xin phép trước</span><b class="red">Không</b></div>
+          <div class="file-row"><span>Nghi phạm</span><b>Chưa xác định</b></div>
+          <div class="stamp">CHƯA GIẢI QUYẾT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="vi-sao">
+    <div class="wrap">
+      <div class="eyebrow">Vì sao không nên</div>
+      <h2>Một cục thịt, <em>bốn cái sai.</em></h2>
+      <div class="reasons">
+        <div class="card r1"><div class="num">01</div><h3>Bất lịch sự</h3><p>Lấy phần ngon nhất trong nồi của người khác mà không hỏi một câu. Đồ ăn nhỏ, nhưng sự tôn trọng thì không nhỏ.</p></div>
+        <div class="card r2"><div class="num">02</div><h3>Nước mắm rất mặn</h3><p>Nước mắm chứa rất nhiều muối. Chỉ một muỗng canh đã có thể chiếm hơn nửa lượng muối nên ăn cả ngày (WHO khuyên dưới 5 g muối/ngày). Ăn mặn lâu dài dễ tăng huyết áp.</p></div>
+        <div class="card r3"><div class="num">03</div><h3>Nhiều mỡ, dễ béo</h3><p>Mỡ cung cấp 9 kcal mỗi gram — gấp đôi đạm hay tinh bột. Thịt mỡ chấm nước mắm ăn với cơm thì calo cộng dồn rất nhanh.</p></div>
+        <div class="card r4"><div class="num">04</div><h3>Mất lòng tin</h3><p>Hôm nay là cục thịt. Lần sau người nấu sẽ phải giấu nồi. Ở chung nhà, niềm tin quan trọng hơn món ăn.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="thong-diep" class="final">
+    <div class="wrap">
+      <div class="eyebrow">Thông điệp</div>
+      <h2>Hãy tôn trọng <em>người khác.</em></h2>
+      <p>Muốn ăn thì cứ hỏi. Hỏi là có — người nấu luôn sẵn lòng chia. Chỉ cần đừng lặng lẽ lấy mất cục thịt.</p>
+      <div class="btns">
+        <button class="btn primary" id="promise">Tôi hứa lần sau sẽ hỏi</button>
+        <button class="btn ghost" id="giveback">Trả lại cục thịt</button>
+      </div>
+      <div class="reply" id="reply" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">© Bếp nhà · Một nồi nui hầm xương đã bị tổn thương · Không có cục thịt nào được hoàn trả.</div></footer>
+
+
+<!-- =========================================================
+     AGENTIC BUILD EFFECT
+     Everything below is the effect. Drop it into any page.
+     ========================================================= -->
+<div id="ab-overlay" aria-hidden="true"></div>
+<div id="ab-hud" role="status">
+  <div class="dots" id="abDots"></div>
+  <span id="abAgents">0 agents</span>
+  <span class="sep"></span>
+  <span id="abLayers">0 / 0 layers</span>
+  <span class="bar"><b id="abBar"></b></span>
+  <span class="sep s2"></span>
+  <span class="state" id="abState">Đang nấu</span>
+  <button id="abSpeed" title="Tốc độ">1×</button>
+  <button id="abSound" title="Âm thanh">🔇</button>
+  <button id="abReplay" title="Nấu lại">↻</button>
+  <button id="abSkip" title="Bỏ qua">✕</button>
+</div>
+
+<script>
+(() => {
+  /* ---------- 1. CONFIG ---------- */
+  const AGENTS = [
+    ["Bếp trưởng","#f4a340"],["Thám tử","#e5483b"],["Pháp y","#a78bfa"],["Nước mắm","#c8641e"],
+    ["Dinh dưỡng","#6fcf5a"],["Lịch sự","#22d3ee"],["Hầm xương","#f59e0b"],["Nui","#facc15"],
+    ["Hành lá","#4ade80"],["Ớt","#ef4444"],["Tỏi","#e7e5e4"],["Muối","#94a3b8"],
+    ["Mỡ","#fde68a"],["Nhân chứng","#f472b6"]
+  ];
+  // What counts as a "layer" (one thing an agent builds)
+  const LAYER_SELECTOR = [
+    "header .logo","header nav a","header .cta",
+    ".eyebrow","h1","h2",".lede",".btn",".stat",".hero-art",".pin","[data-layer]",
+    ".card",".num",".card h3",".card p",".tag",".file-row",".stamp",".final p","footer .wrap"
+  ].join(",");
+
+  const overlay = document.getElementById("ab-overlay");
+  const $ = id => document.getElementById(id);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let speed = 1, sound = false, running = false, runId = 0, follow = true;
+  let layers = [], queue = [], built = 0;
+  let audioCtx = null;
+
+  /* ---------- 2. HELPERS ---------- */
+  const ink = hex => { const n = parseInt(hex.slice(1), 16), R = n >> 16, G = (n >> 8) & 255, B = n & 255;
+    return (0.299*R + 0.587*G + 0.114*B) > 170 ? "#1a120a" : "#fff"; };
+  const sleep = ms => new Promise(r => setTimeout(r, ms / speed));
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const pageRect = el => {
+    const r = el.getBoundingClientRect();
+    return { x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height, vt: r.top, vb: r.bottom };
+  };
+  const sizeOverlay = () => { overlay.style.height = document.documentElement.scrollHeight + "px"; };
+
+  function tick() {
+    if (!sound) return;
+    try {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type = "square"; o.frequency.value = rand(900, 1500);
+      g.gain.setValueAtTime(0.025, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.05);
+      o.connect(g).connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.06);
+    } catch (e) {}
+  }
+
+  function cursorSVG(color) {
+    return `<svg width="18" height="20" viewBox="0 0 18 20"><path d="M1 1 L1 16 L5.2 12.3 L8 19 L10.6 17.9 L7.9 11.3 L13.6 11.3 Z"
+      fill="${color}" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>`;
+  }
+
+  function updateHUD() {
+    $("abLayers").textContent = `${built} / ${layers.length} layers`;
+    $("abBar").style.width = (layers.length ? built / layers.length * 100 : 0) + "%";
+  }
+
+  /* ---------- 3. ONE AGENT'S LOOP ---------- */
+  async function agentLoop([name, color], myRun) {
+    if (myRun !== runId) return;
+    const cur = document.createElement("div");
+    cur.className = "ab-cursor";
+    cur.style.setProperty("--c", color);
+    cur.innerHTML = cursorSVG(color) + `<span class="lbl" style="background:${color};color:${ink(color)}">${name}</span>`;
+    // start somewhere off to the side of the visible screen
+    let px = rand(0, innerWidth), py = scrollY + innerHeight + 40;
+    cur.style.transform = `translate(${px}px,${py}px)`;
+    overlay.appendChild(cur);
+
+    const moveTo = async (x, y, ms) => {
+      const a = cur.animate(
+        [{ transform: `translate(${px}px,${py}px)` }, { transform: `translate(${x}px,${y}px)` }],
+        { duration: ms / speed, easing: "cubic-bezier(.45,.05,.25,1)", fill: "forwards" }
+      );
+      px = x; py = y;
+      await a.finished.catch(() => {});
+    };
+
+    while (running && myRun === runId && queue.length) {
+      const el = queue.shift();
+      const r = pageRect(el);
+      if (!r.w || !r.h) { reveal(el); continue; }
+
+      // a) fly to the top-left corner of the layer
+      await moveTo(r.x, r.y, rand(380, 700));
+      if (myRun !== runId) break;
+
+      // b) drag out a selection box (cursor goes to bottom-right while box grows)
+      const box = document.createElement("div");
+      box.className = "ab-box";
+      box.style.setProperty("--c", color);
+      box.style.cssText += `left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;`;
+      box.innerHTML = `<i></i><i></i><i></i><i></i><span class="sz">${Math.round(r.w)} × ${Math.round(r.h)}</span>`;
+      overlay.appendChild(box);
+      const drag = Math.min(520, 180 + r.w * 0.6);
+      box.animate([{ clipPath: "inset(-10px 100% 100% -10px)" }, { clipPath: "inset(-10px -10px -30px -10px)" }],
+                  { duration: drag / speed, easing: "ease-out", fill: "forwards" });
+      maybeGuides(r, color);
+      await moveTo(r.x + r.w, r.y + r.h, drag);
+      tick();
+
+      // c) the layer "materialises"
+      reveal(el);
+      await sleep(rand(120, 260));
+
+      // d) box fades away
+      box.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450 / speed, fill: "forwards" })
+        .finished.then(() => box.remove()).catch(() => box.remove());
+      await sleep(rand(60, 220));
+    }
+
+    // leave the screen when the queue is empty
+    if (myRun === runId) {
+      await moveTo(px + rand(-80, 80), scrollY - 60, 700);
+      cur.remove();
+    }
+  }
+
+  function reveal(el) {
+    if (!el.classList.contains("unbuilt")) return;
+    el.classList.add("built");
+    el.classList.remove("unbuilt");
+    built++; updateHUD();
+    if (built === layers.length) finish();
+  }
+
+  // occasional full-width / full-height alignment guides
+  function maybeGuides(r, color) {
+    if (Math.random() > 0.35) return;
+    const h = document.createElement("div"), v = document.createElement("div");
+    h.className = v.className = "ab-guide";
+    h.style.cssText = `left:0;top:${r.y}px;width:100%;height:1px;--c:${color}`;
+    v.style.cssText = `left:${r.x}px;top:${Math.max(0, r.y - 300)}px;width:1px;height:${r.h + 600}px;--c:${color}`;
+    overlay.append(h, v);
+    [h, v].forEach(g => g.animate([{ opacity: 0 }, { opacity: .55, offset: .2 }, { opacity: 0 }],
+      { duration: 1100 / speed, fill: "forwards" }).finished.then(() => g.remove()).catch(() => g.remove()));
+  }
+
+  /* ---------- 4. CAMERA: follow the build front ---------- */
+  let camTimer = null;
+  function camera() {
+    if (!running || !follow) return;
+    const front = layers.find(el => el.classList.contains("unbuilt"));
+    if (!front) return;
+    const r = front.getBoundingClientRect();
+    if (r.top > innerHeight * 0.7 || r.bottom < 70) {
+      scrollTo({ top: Math.max(0, r.top + scrollY - innerHeight * 0.22), behavior: "smooth" });
+    }
+  }
+
+  /* ---------- 5. START / FINISH ---------- */
+  function start() {
+    runId++; running = true; follow = true; built = 0;
+    overlay.innerHTML = "";
+    layers = [...document.querySelectorAll(LAYER_SELECTOR)];
+    layers.forEach(el => { el.classList.remove("built"); el.classList.add("unbuilt"); });
+    sizeOverlay();
+    scrollTo({ top: 0 });
+
+    // top-to-bottom order with a little shuffle so agents overlap naturally
+    queue = layers
+      .map((el, i) => ({ el, k: i + rand(-3, 3) }))
+      .sort((a, b) => a.k - b.k)
+      .map(o => o.el);
+
+    $("abState").textContent = "Đang nấu"; $("abState").classList.remove("done");
+    updateHUD();
+
+    if (reduce) { layers.forEach(reveal); return; }
+
+    clearInterval(camTimer); camTimer = setInterval(camera, 500);
+    const myRun = runId;
+    AGENTS.forEach((a, i) => setTimeout(() => agentLoop(a, myRun), i * 140 / speed));
+  }
+
+  function finish() {
+    running = false;
+    $("abState").textContent = "Xong"; $("abState").classList.add("done");
+    setTimeout(() => { if (!running) overlay.querySelectorAll(".ab-box,.ab-guide").forEach(n => n.remove()); }, 800);
+  }
+
+  function skip() {
+    runId++; running = false; queue = [];
+    overlay.innerHTML = "";
+    layers.forEach(reveal);
+  }
+
+  /* ---------- 6. HUD CONTROLS ---------- */
+  $("abDots").innerHTML = AGENTS.slice(0, 5).map(a => `<span style="background:${a[1]}"></span>`).join("");
+  $("abAgents").textContent = `${AGENTS.length} agents`;
+  $("abSpeed").onclick = e => { speed = speed === 1 ? 2 : speed === 2 ? 4 : 1; e.target.textContent = speed + "×"; };
+  $("abSound").onclick = e => { sound = !sound; e.target.textContent = sound ? "🔊" : "🔇"; if (sound) tick(); };
+  $("abReplay").onclick = start;
+  $("abSkip").onclick = skip;
+  ["wheel", "touchmove"].forEach(ev => addEventListener(ev, () => { follow = false; }, { passive: true }));
+  addEventListener("resize", sizeOverlay);
+
+  const reply = document.getElementById("reply");
+  document.getElementById("promise").onclick = () => { reply.textContent = "Đã ghi nhận 🙏 Nồi nui tha thứ cho bạn — lần này thôi nhé."; };
+  document.getElementById("giveback").onclick = () => { reply.textContent = "Rất tiếc, cục thịt đã được chấm nước mắm. Không thể hoàn trả."; };
+
+  start();
+})();
+</script>
+</body>
+</html>
